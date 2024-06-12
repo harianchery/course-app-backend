@@ -12,7 +12,7 @@ app.use(express.json())
 mongoose.connect("mongodb+srv://hari:hari001@cluster0.ocavfn3.mongodb.net/coursedb?retryWrites=true&w=majority&appName=Cluster0")
 
 
-app.post("/add",(req,res)=>{
+app.post("/",(req,res)=>{
     let input=req.body
     //console.log(input)
     let course=new coursemodel(input)
@@ -32,6 +32,17 @@ app.get("/view",(req,res)=>{
     })
     
 
+})
+
+app.post("/search",(req,res)=>{
+    let input=req.body
+    coursemodel.find(input).then(
+        (data)=>{
+            res.json(data)
+        }
+    ).catch((error)=>{
+        res.json(error)
+    })
 })
 
 app.listen(8081,()=>{
